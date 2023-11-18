@@ -1,10 +1,12 @@
 # mediaklikk_extractor
-extract mediaklikk live stream urls
+automatically extract mediaklikk live stream urls
 
-example usage:
+### example usage:
+- (mtv3live seemed to be offline when this was tested)
 
 ```
-marci@marcipc /t/mediaklikk_extractor (main)> python mediaklikk_extractor.py 
+python mediaklikk_extractor.py
+
 dunalive : https://c401-node62-cdn.connectmedia.hu/110103/46bb58b141cdc8df2928ec35f92d548d/6558e301/index.m3u8?v=5iip:XX.XX.XX.XX
 dunaworldlive : https://c201-node61-cdn.connectmedia.hu/110106/0f86e8790f55cbb07d5c10ed10e28372/6558e302/index.m3u8?v=5iip:XX.XX.XX.XX
 m4sport1 : https://c202-node61-cdn.connectmedia.hu/110107/dd4bc594873d779b583cd1ce5b0ed64c/6558e302/index.m3u8?v=5iip:XX.XX.XX.XX
