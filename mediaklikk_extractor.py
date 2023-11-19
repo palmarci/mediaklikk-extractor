@@ -2,6 +2,7 @@ import requests
 import re
 import json
 from time import sleep
+import datetime
 
 setup_pattern = r'pl\.setup(.*?)\)\;'
 player_url = "https://player.mediaklikk.hu/playernew/player.php?video="
@@ -54,21 +55,30 @@ def get_stream_list():
 	
 	streams = set()
 	for i in js['streams']:
+		if i['type'] == 'live':
+			title = i['title'].strip()
+			tv = i['name'].strip()
+			print(f'{tv:<15} {title}')
 		streams.add(i['code'])
 	
 	return sorted(list(streams))
 
 def main():
-	for stream in get_stream_list():
+	current_time = datetime.datetime.now()
+	print(f"Mediaklikk online streams ({current_time})")
+	print("-"*50)
+	stream_list = get_stream_list()
+	print("-"*50)
+	for stream in stream_list:
 		try:
 			html_response = get_player_data(stream)
 			setup_data = get_setup_data(html_response)
 			if setup_data['playlist'][0]['type'] == 'hls':
 				url = setup_data['playlist'][0]['file']
-				print(f'{stream} : {url}')
+				print(f'{stream:<15} {url}')
 			sleep(wait_time) # just to be on the safe side
 		except Exception as e:
-				print(f'{stream} : failed: {e}')
+				print(f'{stream:<15} failed, {e}')
 
 if __name__ == "__main__":
 	main()
